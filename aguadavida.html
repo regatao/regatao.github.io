@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Água da Vida – Distribuidora de Água Mineral</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0a2a5e;
+    --blue-mid: #1357a6;
+    --blue-bright: #1e90ff;
+    --blue-light: #67c3f3;
+    --cyan: #00d4ff;
+    --white: #ffffff;
+    --green-wa: #25d366;
+    --green-wa-dark: #1da851;
+    --yellow: #ffe600;
+    --orange: #ff8c00;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--blue-deep);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── WAVES BG ── */
+  .waves-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(160deg, #0a2a5e 0%, #0d3d7a 40%, #0a2a5e 100%);
+  }
+  .waves-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 20% 10%, rgba(30,144,255,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,212,255,.13) 0%, transparent 70%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative; z-index: 10;
+    background: linear-gradient(90deg, var(--blue-deep) 0%, #0f3870 50%, var(--blue-deep) 100%);
+    border-bottom: 3px solid var(--cyan);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+    box-shadow: 0 4px 24px rgba(0,212,255,.2);
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-brand img {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 3px solid var(--cyan);
+    box-shadow: 0 0 16px rgba(0,212,255,.5);
+  }
+  .header-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 1px;
+    line-height: 1.1;
+    color: var(--white);
+  }
+  .header-name span { color: var(--cyan); }
+  .header-phone {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--white); text-decoration: none;
+    background: var(--green-wa);
+    padding: 8px 18px; border-radius: 50px;
+    box-shadow: 0 4px 16px rgba(37,211,102,.4);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .header-phone:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(37,211,102,.6); }
+  .header-phone svg { width: 20px; height: 20px; fill: white; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 60px 20px 50px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '💧';
+    position: absolute; top: -10px; left: -30px;
+    font-size: 200px; opacity: .04;
+    transform: rotate(-20deg);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--cyan), var(--blue-bright));
+    color: var(--blue-deep);
+    font-weight: 900; font-size: .85rem;
+    padding: 5px 18px; border-radius: 50px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(0,212,255,.4);
+    animation: fadeDown .6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    line-height: 1;
+    color: var(--white);
+    text-shadow: 0 4px 24px rgba(0,0,0,.4);
+    animation: fadeDown .7s .1s ease both;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--cyan), var(--blue-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    font-weight: 600; opacity: .9;
+    margin: 18px auto 0; max-width: 560px;
+    animation: fadeDown .7s .2s ease both;
+  }
+  .hero-drops {
+    display: flex; justify-content: center; gap: 8px;
+    margin: 10px 0 0;
+    font-size: 2rem;
+    animation: fadeDown .7s .3s ease both;
+  }
+
+  /* ── CTA BUTTONS ── */
+  .cta-group {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    justify-content: center;
+    margin: 36px auto 0; max-width: 600px;
+    animation: fadeUp .7s .35s ease both;
+  }
+  .btn-wa {
+    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #25d366, #1da851);
+    color: white; font-family: 'Nunito', sans-serif;
+    font-size: 1.15rem; font-weight: 900;
+    padding: 16px 32px; border-radius: 60px;
+    text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 8px 28px rgba(37,211,102,.5);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-wa:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 36px rgba(37,211,102,.65); }
+  .btn-wa svg { width: 26px; height: 26px; fill: white; flex-shrink: 0; }
+
+  .btn-tel {
+    display: flex; align-items: center; gap: 10px;
+    background: transparent;
+    color: var(--cyan); font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem; font-weight: 800;
+    padding: 15px 28px; border-radius: 60px;
+    text-decoration: none; border: 2px solid var(--cyan);
+    transition: background .2s, color .2s;
+  }
+  .btn-tel:hover { background: var(--cyan); color: var(--blue-deep); }
+
+  /* ── DIVIDER WAVE ── */
+  .wave-divider { width: 100%; overflow: hidden; line-height: 0; position: relative; z-index: 5; }
+  .wave-divider svg { display: block; width: 100%; }
+
+  /* ── FEATURES ── */
+  .features {
+    position: relative; z-index: 5;
+    background: linear-gradient(180deg, #0d3d7a 0%, #0a2a5e 100%);
+    padding: 50px 20px 60px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 1px; margin-bottom: 36px;
+  }
+  .section-title span { color: var(--cyan); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px; max-width: 900px; margin: 0 auto;
+  }
+  .feat-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(103,195,243,.2);
+    border-radius: 20px; padding: 30px 22px;
+    text-align: center;
+    transition: transform .25s, background .25s, box-shadow .25s;
+    animation: fadeUp .6s ease both;
+  }
+  .feat-card:hover {
+    transform: translateY(-6px);
+    background: rgba(0,212,255,.1);
+    box-shadow: 0 12px 32px rgba(0,212,255,.2);
+  }
+  .feat-icon { font-size: 2.8rem; margin-bottom: 14px; }
+  .feat-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; color: var(--cyan); }
+  .feat-desc { font-size: .95rem; opacity: .85; line-height: 1.5; }
+
+  /* ── PRICING ── */
+  .pricing {
+    position: relative; z-index: 5;
+    background: var(--blue-deep); padding: 50px 20px 60px;
+  }
+  .price-box {
+    max-width: 480px; margin: 0 auto;
+    background: linear-gradient(135deg, #1357a6, #0a2a5e);
+    border: 2px solid var(--cyan);
+    border-radius: 28px; padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 16px 60px rgba(0,212,255,.25);
+    animation: fadeUp .6s ease both;
+  }
+  .price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: var(--cyan); }
+  .price-product { font-size: 1.6rem; font-weight: 900; margin: 10px 0; }
+  .price-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; line-height: 1;
+    background: linear-gradient(90deg, var(--yellow), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .price-note { font-size: .9rem; opacity: .8; margin-top: 6px; }
+  .price-cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: linear-gradient(135deg, #25d366, #1da851);
+    color: white; font-size: 1.1rem; font-weight: 900;
+    padding: 16px 32px; border-radius: 60px;
+    text-decoration: none; margin-top: 28px;
+    box-shadow: 0 8px 24px rgba(37,211,102,.4);
+    transition: transform .2s;
+  }
+  .price-cta:hover { transform: scale(1.05); }
+  .price-cta svg { width: 22px; height: 22px; fill: white; }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    position: relative; z-index: 5;
+    background: linear-gradient(180deg, #0d3d7a 0%, #0a2a5e 100%);
+    padding: 50px 20px 60px;
+  }
+  .steps {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0; max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .step {
+    flex: 1; min-width: 180px; max-width: 250px;
+    text-align: center; padding: 20px 16px;
+    position: relative;
+    animation: fadeUp .6s ease both;
+  }
+  .step-num {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--blue-bright));
+    color: var(--blue-deep);
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 20px rgba(0,212,255,.4);
+  }
+  .step-title { font-weight: 900; font-size: 1.05rem; color: var(--cyan); margin-bottom: 6px; }
+  .step-desc { font-size: .9rem; opacity: .85; line-height: 1.5; }
+
+  /* ── ADDRESS ── */
+  .address-section {
+    position: relative; z-index: 5;
+    background: var(--blue-deep); padding: 50px 20px 60px;
+  }
+  .address-card {
+    max-width: 600px; margin: 0 auto;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(103,195,243,.25);
+    border-radius: 24px; padding: 36px 28px;
+    text-align: center;
+    animation: fadeUp .6s ease both;
+  }
+  .address-icon { font-size: 3rem; margin-bottom: 12px; }
+  .address-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--cyan); margin-bottom: 10px; }
+  .address-text { font-size: 1.05rem; line-height: 1.7; opacity: .9; }
+  .address-text strong { color: var(--white); }
+  .hours {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 16px;
+    background: rgba(0,212,255,.12); border: 1px solid rgba(0,212,255,.3);
+    padding: 8px 20px; border-radius: 50px;
+    font-size: .9rem; font-weight: 700;
+  }
+
+  /* ── LEAD FORM ── */
+  .lead-section {
+    position: relative; z-index: 5;
+    background: linear-gradient(135deg, #0d3d7a, #0a2a5e);
+    padding: 60px 20px;
+  }
+  .lead-box {
+    max-width: 520px; margin: 0 auto;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(103,195,243,.25);
+    border-radius: 28px; padding: 40px 28px;
+    animation: fadeUp .6s ease both;
+  }
+  .lead-box h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; text-align: center; margin-bottom: 8px;
+  }
+  .lead-box h2 span { color: var(--cyan); }
+  .lead-sub { text-align: center; opacity: .8; margin-bottom: 28px; font-size: .95rem; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 6px; opacity: .9; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 13px 16px;
+    background: rgba(255,255,255,.1);
+    border: 1.5px solid rgba(103,195,243,.3);
+    border-radius: 12px; color: white;
+    font-family: 'Nunito', sans-serif; font-size: 1rem;
+    outline: none; transition: border .2s, background .2s;
+  }
+  .form-group input::placeholder { color: rgba(255,255,255,.45); }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--cyan);
+    background: rgba(0,212,255,.08);
+  }
+  .form-group select option { background: #0a2a5e; color: white; }
+  .btn-submit {
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #25d366, #1da851);
+    color: white; font-family: 'Nunito', sans-serif;
+    font-size: 1.15rem; font-weight: 900;
+    border: none; border-radius: 60px; cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 8px 24px rgba(37,211,102,.4);
+    transition: transform .2s, box-shadow .2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,.55); }
+  .btn-submit svg { width: 22px; height: 22px; fill: white; }
+  .form-note { text-align: center; font-size: .8rem; opacity: .6; margin-top: 12px; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 5;
+    background: #061a3a;
+    border-top: 2px solid rgba(0,212,255,.2);
+    padding: 28px 20px; text-align: center;
+    font-size: .9rem; opacity: .7;
+  }
+
+  /* ── FLOATING WA BUTTON ── */
+  .float-wa {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    width: 62px; height: 62px; border-radius: 50%;
+    background: var(--green-wa);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 28px rgba(37,211,102,.6);
+    text-decoration: none;
+    animation: pulse 2.2s infinite;
+    transition: transform .2s;
+  }
+  .float-wa:hover { transform: scale(1.1); }
+  .float-wa svg { width: 34px; height: 34px; fill: white; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 28px rgba(37,211,102,.6); }
+    50%       { box-shadow: 0 6px 44px rgba(37,211,102,.9); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 480px) {
+    .header-name { font-size: 1.1rem; }
+    .price-value { font-size: 3.8rem; }
+    .lead-box { padding: 30px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="waves-bg"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-brand">
+    <img src="IMG-20260321-WA0003.jpg" alt="Logo Água da Vida" onerror="this.style.display='none'">
+    <div class="header-name">
+      ÁGUA DA VIDA<br>
+      <span style="font-size:.9rem; font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:0; color: rgba(255,255,255,.75);">Distribuidora de Água Mineral</span>
+    </div>
+  </div>
+  <a href="https://api.whatsapp.com/send/?phone=5511925983477&text&type=phone_number&app_absent=0" class="header-phone" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    (11) 92598-3477
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🚚 Entrega Rápida em Taboão da Serra e Demais Regiões</div>
+  <h1>ÁGUA PURA<br><span>NA SUA PORTA</span></h1>
+  <p class="hero-sub">Galão de 20 litros entregue com qualidade e agilidade. Peça agora pelo WhatsApp!</p>
+  <div class="hero-drops">💧💧💧💧💧</div>
+
+  <div class="cta-group">
+    <a href="https://api.whatsapp.com/send/?phone=5511925983477&text=Ol%C3%A1!%20Quero%20pedir%20%C3%A1gua%20mineral!&type=phone_number&app_absent=0" class="btn-wa" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Pedir pelo WhatsApp
+    </a>
+    <a href="tel:11925983477" class="btn-tel">📞 Ligar Agora</a>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z" fill="#0d3d7a"/>
+  </svg>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2 class="section-title">Por que escolher a <span>Água da Vida?</span></h2>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">🚚</div>
+      <div class="feat-title">Entrega Rápida</div>
+      <div class="feat-desc">Receba seu galão no conforto da sua casa ou empresa com agilidade.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💧</div>
+      <div class="feat-title">Água de Qualidade</div>
+      <div class="feat-desc">Água mineral pura, fresca e saudável para toda a família.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏪</div>
+      <div class="feat-title">Retire no Local</div>
+      <div class="feat-desc">Prefere buscar? Pode vir retirar diretamente na nossa distribuidora.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💬</div>
+      <div class="feat-title">Atendimento Fácil</div>
+      <div class="feat-desc">Peça pelo WhatsApp com apenas uma mensagem. Simples e rápido!</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📦</div>
+      <div class="feat-title">Galão 20 Litros</div>
+      <div class="feat-desc">Ideal para residências, escritórios, academias e muito mais.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⭐</div>
+      <div class="feat-title">Confiança</div>
+      <div class="feat-desc">Anos servindo a região com compromisso e qualidade reconhecida.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="transform:scaleX(-1)">
+  <svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z" fill="#0a2a5e"/>
+  </svg>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <h2 class="section-title">Como <span>Pedir?</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Mande uma mensagem</div>
+      <div class="step-desc">Entre em contato pelo WhatsApp ou ligue para nós.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Informe seu endereço</div>
+      <div class="step-desc">Diga onde quer receber ou se prefere retirar na loja.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Aguarde a entrega</div>
+      <div class="step-desc">Seu galão chega rapidinho, fresquinho e com qualidade!</div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:36px;">
+    <a href="https://api.whatsapp.com/send/?phone=5511925983477&text=Ol%C3%A1!%20Quero%20pedir%20%C3%A1gua%20mineral!&type=phone_number&app_absent=0" class="btn-wa" style="display:inline-flex;" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Quero Pedir Agora!
+    </a>
+  </div>
+</section>
+
+<!-- ADDRESS -->
+<section class="address-section">
+  <h2 class="section-title">Onde <span>Estamos?</span></h2>
+  <div class="address-card">
+    <div class="address-icon">📍</div>
+    <div class="address-title">Nossa Distribuidora</div>
+    <p class="address-text">
+      <strong>Rua Doutor Manuel Octaviano Diniz<br>Junqueira Filho, 337</strong><br>
+      Taboão da Serra – SP
+    </p>
+    <div class="hours">⏰ Seg a Sáb – 08h às 18h</div>
+    <br><br>
+    <a href="https://api.whatsapp.com/send/?phone=5511925983477&text=Ol%C3%A1!%20Quero%20retirar%20um%20gal%C3%A3o%20na%20loja.&type=phone_number&app_absent=0"
+       class="price-cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Avisar que vou retirar
+    </a>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section class="lead-section">
+  <div class="lead-box">
+    <h2>PEÇA SEU <span>GALÃO</span> AGORA</h2>
+    <p class="lead-sub">Preencha e entraremos em contato pelo WhatsApp rapidinho! 💧</p>
+    <div class="form-group">
+      <label>Seu nome</label>
+      <input type="text" id="nome" placeholder="Como podemos te chamar?">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp</label>
+      <input type="tel" id="telefone" placeholder="(11) 9 0000-0000">
+    </div>
+    <div class="form-group">
+      <label>Tipo de pedido</label>
+      <select id="tipo">
+        <option value="">Selecione...</option>
+        <option>Entrega no endereço</option>
+        <option>Retirar na loja</option>
+        <option>Quero mais informações</option>
+      </select>
+    </div>
+    <button class="btn-submit" onclick="enviarWhatsApp()">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar pelo WhatsApp
+    </button>
+    <p class="form-note">🔒 Seus dados são usados apenas para o atendimento</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Água da Vida</strong> – Distribuidora de Água Mineral | Taboão da Serra – SP</p>
+  <p style="margin-top:6px;">📞 (11) 92598-3477</p>
+</footer>
+
+<!-- FLOATING BUTTON -->
+<a href="https://api.whatsapp.com/send/?phone=5511925983477&text=Ol%C3%A1!%20Quero%20pedir%20%C3%A1gua%20mineral!&type=phone_number&app_absent=0" class="float-wa" target="_blank" rel="noopener" title="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function enviarWhatsApp() {
+  const nome = document.getElementById('nome').value.trim();
+  const tel  = document.getElementById('telefone').value.trim();
+  const tipo = document.getElementById('tipo').value;
+  if (!nome || !tel) { alert('Por favor, preencha seu nome e WhatsApp!'); return; }
+  const msg = encodeURIComponent(
+    `Olá! Me chamo *${nome}*.\nMeu WhatsApp é: *${tel}*.\nPedido: *${tipo || 'Quero mais informações'}*.\nGostaria de saber mais sobre o galão de água! 💧`
+  );
+  window.open(`https://api.whatsapp.com/send/?phone=5511925983477&text=${msg}&type=phone_number&app_absent=0`, '_blank');
+}
+</script>
+</body>
+</html>
